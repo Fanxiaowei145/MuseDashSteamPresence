@@ -1,0 +1,23 @@
+# Build outputs and local references are never part of source control.
+/artifacts/
+/dist/
+/.local/
+/refs/
+**/bin/
+**/obj/
+*.dll
+*.exe
+*.pdb
+*.zip
+*.dmp
+*.log
+*.pid
+*.tmp
+*.bak
+*.lnk
+**/state/
+**/settings.xml
+.vs/
+.vscode/
+Thumbs.db
+Desktop.ini

@@ -1,0 +1,29 @@
+name: Offline checks
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test policy, formatting, settings and real controller with fake Steam
+        shell: pwsh
+        run: ./scripts/build.ps1 -TestsOnly
+      - name: Validate PowerShell syntax
+        shell: pwsh
+        run: |
+          $failed = $false
+          Get-ChildItem scripts,tests -Filter *.ps1 -Recurse | ForEach-Object {
+            $tokens = $null; $errors = $null
+            [void][System.Management.Automation.Language.Parser]::ParseFile($_.FullName,[ref]$tokens,[ref]$errors)
+            if ($errors) { $errors | ForEach-Object { Write-Error $_ -ErrorAction Continue }; $failed = $true }
+          }
+          if ($failed) { exit 1 }
+      - name: Compile-only scope
+        shell: pwsh
+        run: Write-Output 'No game references or Steam connection are used. Full plugin builds and release packaging run locally.'

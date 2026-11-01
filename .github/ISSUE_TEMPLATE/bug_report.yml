@@ -1,0 +1,35 @@
+name: 问题反馈
+description: 反馈安装、显示或兼容性问题
+body:
+  - type: markdown
+    attributes:
+      value: 请先阅读兼容范围。不要上传 Steam 账号、令牌、整个配置目录或崩溃转储。日志只需与问题相关且已去除个人信息的片段。
+  - type: input
+    id: version
+    attributes:
+      label: 本插件版本
+      placeholder: 例如 0.5.1-beta.1
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: 游戏、MelonLoader、Euterpe（如有）版本
+    validations:
+      required: true
+  - type: input
+    id: steam_hash
+    attributes:
+      label: Steam steamclient64.dll 的 SHA256（非账号信息）
+      description: 版本不匹配时请提供；不要只填写“最新版”。
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤、期望结果与实际结果
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: 已去除个人信息的相关日志片段
+      render: text
