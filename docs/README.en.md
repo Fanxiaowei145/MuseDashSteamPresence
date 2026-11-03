@@ -1,6 +1,6 @@
 # MuseDashSteamPresence
 
-[简体中文](../README.md) | English
+[English](../README.md) | [简体中文](README.zh-CN.md)
 
 Show your current Muse Dash song in Steam Friends. Supports built-in songs and Euterpe custom charts, optional artist names, custom idle text and separators. Friends do not need this mod.
 

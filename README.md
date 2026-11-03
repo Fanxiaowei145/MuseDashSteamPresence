@@ -1,54 +1,54 @@
 # MuseDashSteamPresence
 
-[简体中文](README.md) | [English](docs/README.en.md)
+English | [简体中文](docs/README.zh-CN.md)
 
-在 Steam 好友列表显示你正在 Muse Dash 中游玩的曲名，支持本体曲目和 Euterpe 自制曲。可自定义状态、歌曲作者和分隔符，好友无需安装。
+Show your current Muse Dash song in Steam Friends. Supports built-in songs and Euterpe custom charts, optional artist names, custom idle text and separators. Friends do not need this mod.
 
-**[下载模组 DLL](https://github.com/Fanxiaowei145/MuseDashSteamPresence/releases/download/v0.5.1-beta.1/MuseDashSteamPresence.dll)** · **[下载完整安装包](https://github.com/Fanxiaowei145/MuseDashSteamPresence/releases/download/v0.5.1-beta.1/MuseDashSteamPresence-0.5.1-beta.1-win-x64.zip)** · [版本页面](https://github.com/Fanxiaowei145/MuseDashSteamPresence/releases/tag/v0.5.1-beta.1)
+**[Download mod DLL](https://github.com/Fanxiaowei145/MuseDashSteamPresence/releases/download/v0.5.1-beta.1/MuseDashSteamPresence.dll)** · **[Download full ZIP](https://github.com/Fanxiaowei145/MuseDashSteamPresence/releases/download/v0.5.1-beta.1/MuseDashSteamPresence-0.5.1-beta.1-win-x64.zip)** · [Release page](https://github.com/Fanxiaowei145/MuseDashSteamPresence/releases/tag/v0.5.1-beta.1)
 
-当前版本：**0.5.1 Beta**。上面的链接可直接下载；也可进入版本页面，在 **Assets** 中选择 DLL 或 `win-x64.zip`。两种安装方式任选一种，`Source code` 是源码。
+Current version: **0.5.1 Beta**. The links download the files directly. Alternatively, open the release page and choose the DLL or `win-x64.zip` under **Assets**. Use either installation method; the generated **Source code** archives are for developers.
 
-## 效果
+## Preview
 
-| 未打歌（开启自定义文字） | 打歌（开启作者显示） |
+| Custom idle text enabled | Artist display enabled |
 | --- | --- |
-| ![选歌状态](docs/images/friend-selecting.png) | ![歌曲状态](docs/images/friend-playing.png) |
+| ![Idle status](docs/images/friend-selecting.png) | ![Playing status](docs/images/friend-playing.png) |
 
-新装默认：未打歌显示 `Muse Dash`，打歌显示 `Muse Dash : 曲名`，不显示作者。截图中的自定义文字和作者均可自行开启。
+Defaults: `Muse Dash` while idle and `Muse Dash : song title` while playing. Custom idle text and artist display are off by default.
 
-## 安装
+## Installation
 
-需要 **Windows x64、Steam 正版 Muse Dash、MelonLoader 0.7.3 net6**。
+Requires **Windows x64, Steam Muse Dash and MelonLoader 0.7.3 net6**.
 
-1. 关闭游戏，下载上方的 **模组 DLL**。
-2. Steam 库右键 Muse Dash → 管理 → 浏览本地文件，将 `MuseDashSteamPresence.dll` 放进 **`Mods`** 文件夹。
-3. 从 Steam 正常启动游戏一次，配套设置工具会自动生成，开始打歌即可显示曲名。
+1. Close the game and download the **mod DLL** above.
+2. In Steam, right-click Muse Dash → Manage → Browse local files. Put `MuseDashSteamPresence.dll` in **`Mods`**.
+3. Launch the game through Steam once to prepare the bundled settings tool. Start a song to see its title in your status.
 
-没有 MelonLoader？先用[官方安装器](https://github.com/LavaGang/MelonLoader.Installer/releases/latest)为 Muse Dash 安装 **0.7.3**，启动游戏初始化一次。已通过 Euterpe 完成游戏环境安装的玩家可跳过；仅下载 Euterpe 软件不算完成。
+If needed, use the [official MelonLoader installer](https://github.com/LavaGang/MelonLoader.Installer/releases/latest) to install loader **0.7.3** for Muse Dash, then launch the game once to initialize it. Euterpe's completed game-environment setup can also install the loader; merely downloading Euterpe does not.
 
-希望首次开游戏前就修改设置，可改用 **完整安装包**：关闭游戏，将 ZIP 内全部内容解压到 `musedash.exe` 同级，再打开设置工具。完整步骤见[安装说明](docs/INSTALL.md)。
+To configure before the first game launch, use the **full ZIP** instead: close the game and extract all contents beside `musedash.exe`, then open the settings tool. [Detailed installation guide, in Chinese](docs/INSTALL.md).
 
-Euterpe Hub 上架后，也可通过客户端下载本模组；具体以平台审核状态为准。
+Euterpe Hub installation will be available subject to platform review and listing.
 
-## 自定义
+## Settings
 
-双击游戏根目录的 **`MuseDash-Settings.cmd`**，调整后点击 **“保存并应用”**。
+Open **`MuseDash-Settings.cmd`** in the game folder, change the options and click **`保存并应用`** (Save and apply). The settings UI is currently Chinese.
 
-- 自定义非打歌时的文字，或只显示游戏名。
-- 独立开关曲名和歌曲作者。
-- 选择无、空格、`_` 或自定义分隔符。
+- Customize idle text or show only the game name.
+- Toggle song titles and artists independently.
+- Choose no separator, a space, `_`, or custom text.
 
-设置工具独立运行，无需启动游戏或保持 Euterpe 打开；游戏运行中保存也会更新状态。升级保留已有设置。退出游戏后运行 `MuseDash-Disable.cmd` 可停用，`MuseDash-Enable.cmd` 可恢复。
+The settings app works independently of the game and Euterpe. Saving during gameplay also updates the status. Existing settings are preserved on upgrade. With the game closed, use `MuseDash-Disable.cmd` to disable the mod or `MuseDash-Enable.cmd` to restore it.
 
-## 兼容与限制
+## Compatibility
 
-- 已验证跨一次游戏版本更新正常使用，其他游戏版本不保证兼容。
-- 使用私有 Steam 客户端接口，**仅已适配的 Steam DLL 指纹可发送状态**，不匹配时停止发送。[兼容详情](docs/COMPATIBILITY.md)
-- 当前已验证客户端下，切歌不会反复触发“开始玩游戏”通知；首次启动仍可能正常通知。
-- 过长的曲名与作者可能显示不全，目前没有保证完整显示的解决方案。
+- Reported working across one game-version update; other game versions are not guaranteed.
+- Uses private Steam client interfaces. **Only verified Steam DLL builds can publish status**; unsupported builds stop sending. [Compatibility details](docs/COMPATIBILITY.md).
+- On the verified client, song changes do not repeatedly trigger new “started playing” notifications. Initial launch may still notify friends normally.
+- Long titles and artist names may be truncated. There is currently no guaranteed full-display solution.
 
-主 DLL 内嵌自己的辅助程序、设置工具和早期插件，首次运行在本地释放，无需额外下载；不修改游戏、Steam 或其他模组原文件。
+The main DLL bundles its own helper, settings app and early plugin, preparing them locally on first launch without extra downloads. It does not modify original game, Steam or other-mod files.
 
-作者：**樊小胃 / Fanxiaowei145**。免费开源，采用 [MIT 许可证](LICENSE)，欢迎提交 [Issue](https://github.com/Fanxiaowei145/MuseDashSteamPresence/issues) 或改进。
+By **樊小胃 / Fanxiaowei145**. Free and open source under [MIT](LICENSE). [Issues](https://github.com/Fanxiaowei145/MuseDashSteamPresence/issues) and contributions are welcome.
 
-[使用说明](docs/USAGE.md) · [构建说明](docs/BUILD.md) · [更新记录](CHANGELOG.md)
+[Build guide](docs/BUILD.md) · [Changelog](CHANGELOG.md)
