@@ -31,6 +31,11 @@ namespace MuseDashSteamPresence
         int pipe, user;
         uint connection;
         readonly uint gameProcessId;
+        AllocateShared allocateShared;
+        ReleaseShared releaseShared;
+        SendMessage sendStatus;
+        GetPlayed readPlayed;
+        GetExtra readExtra;
         ulong steamid;
         GetCallback getCallback;
         FreeCallback freeCallback;
@@ -51,9 +56,7 @@ namespace MuseDashSteamPresence
                 // Deny replacement/writes between inspection and native initialization.
                 using (var validatedFile = new FileStream(dll,FileMode.Open,FileAccess.Read,FileShare.Read))
                 {
-                bool equivalent;
-                var profile = SteamBuild.ReadProfile(validatedFile,out equivalent);
-                if (profile == null) throw new InvalidOperationException("Steam executable content changed; no compatible audited profile.");
+                var profile = PresenceImageLocator.ReadAudited(validatedFile);
                 var module = LoadLibraryExW(dll, IntPtr.Zero, 0x100 | 0x1000);
                 if (module == IntPtr.Zero) throw new InvalidOperationException("Cannot load Steam IPC runtime.");
                 getCallback = (GetCallback)Marshal.GetDelegateForFunctionPointer(GetProcAddress(module, "Steam_BGetCallback"), typeof(GetCallback));
@@ -62,17 +65,21 @@ namespace MuseDashSteamPresence
                 client = create("SteamClient020", IntPtr.Zero);
                 var engine = create("CLIENTENGINE_INTERFACE_VERSION005", IntPtr.Zero);
                 if (client == IntPtr.Zero || engine == IntPtr.Zero) throw new InvalidOperationException("Steam interface unavailable.");
-                ValidateSlots(engine, module, new int[] {13,69}, profile.Engine);
+                var getFriends = BindLocated<GetInterface>(engine,module,13,profile.Engine[0]);
+                var getShared = BindLocated<GetInterface>(engine,module,69,profile.Engine[1]);
                 pipe = Fn<CreatePipe>(client, 0)(client);
                 user = Fn<ConnectUser>(client, 2)(client, pipe);
                 if (pipe == 0 || user == 0) throw new InvalidOperationException("Steam must be running and signed in.");
-                shared = Fn<GetInterface>(engine, 69)(engine, user, pipe);
-                friends = Fn<GetInterface>(engine, 13)(engine, user, pipe);
+                shared = getShared(engine, user, pipe);
+                friends = getFriends(engine, user, pipe);
                 if (shared == IntPtr.Zero || friends == IntPtr.Zero) throw new InvalidOperationException("Steam interfaces unavailable.");
                 // The three wrappers were independently verified on disk and in
                 // a successful external-process round-trip test. No guessed ABI.
-                ValidateSlots(shared, module, new int[] {0,1,2}, profile.Shared);
-                ValidateSlots(friends, module, new int[] {23,24}, profile.Friends);
+                allocateShared = BindLocated<AllocateShared>(shared,module,0,profile.Shared[0]);
+                releaseShared = BindLocated<ReleaseShared>(shared,module,1,profile.Shared[1]);
+                sendStatus = BindLocated<SendMessage>(shared,module,2,profile.Shared[2]);
+                readPlayed = BindLocated<GetPlayed>(friends,module,23,profile.Friends[0]);
+                readExtra = BindLocated<GetExtra>(friends,module,24,profile.Friends[1]);
                 using (var key = Registry.CurrentUser.OpenSubKey(@"Software\Valve\Steam\ActiveProcess"))
                 {
                     uint account = Convert.ToUInt32(key.GetValue("ActiveUser"));
@@ -80,18 +87,19 @@ namespace MuseDashSteamPresence
                     steamid = 76561197960265728UL + account;
                 }
                 callbackBuffer = Marshal.AllocHGlobal(32);
-                connection = Fn<AllocateShared>(shared, 0)(shared);
+                connection = allocateShared(shared);
                 if (connection == 0) throw new InvalidOperationException("Shared connection allocation failed.");
                 PumpCallbacks();
                 }
             }
             catch { Dispose(); throw; }
         }
-        static void ValidateSlots(IntPtr obj, IntPtr module, int[] slots, long[] expected)
+        static T BindLocated<T>(IntPtr instance, IntPtr module, int slot, long locatedRva) where T : class
         {
-            for (int i = 0; i < slots.Length; i++)
-                if (Marshal.ReadIntPtr(Marshal.ReadIntPtr(obj), slots[i] * IntPtr.Size).ToInt64() - module.ToInt64() != expected[i])
-                    throw new InvalidOperationException("Steam interface ABI mismatch; no status message sent.");
+            var address = new IntPtr(checked(module.ToInt64() + locatedRva));
+            if (Marshal.ReadIntPtr(Marshal.ReadIntPtr(instance), slot * IntPtr.Size) != address)
+                throw new InvalidOperationException("Loaded presence interface differs from the audited on-disk result.");
+            return Marshal.GetDelegateForFunctionPointer(address, typeof(T)) as T;
         }
         static T Fn<T>(IntPtr obj, int index) where T : class
         {
@@ -107,12 +115,12 @@ namespace MuseDashSteamPresence
         public ulong ReadCurrentGameId()
         {
             IntPtr info = Marshal.AllocHGlobal(24);
-            try { return Fn<GetPlayed>(friends, 23)(friends, steamid, info) ? unchecked((ulong)Marshal.ReadInt64(info)) : 0; }
+            try { return readPlayed(friends, steamid, info) ? unchecked((ulong)Marshal.ReadInt64(info)) : 0; }
             finally { Marshal.FreeHGlobal(info); }
         }
         public string ReadCurrentTitle()
         {
-            IntPtr value = Fn<GetExtra>(friends, 24)(friends, steamid);
+            IntPtr value = readExtra(friends, steamid);
             if (value == IntPtr.Zero) return "";
             int count = 0;
             while (count < 4096 && Marshal.ReadByte(value, count) != 0) count++;
@@ -129,7 +137,7 @@ namespace MuseDashSteamPresence
             try
             {
                 Marshal.Copy(packet, 0, bytes, packet.Length);
-                return Fn<SendMessage>(shared, 2)(shared, connection, bytes, (uint)packet.Length);
+                return sendStatus(shared, connection, bytes, (uint)packet.Length);
             }
             finally { Marshal.FreeHGlobal(bytes); }
             // Confirmation is observed asynchronously by the controller. Waiting
@@ -142,7 +150,7 @@ namespace MuseDashSteamPresence
             try
             {
                 PumpCallbacks();
-                if (connection != 0) { Fn<ReleaseShared>(shared, 1)(shared, connection); connection = 0; }
+                if (connection != 0) { releaseShared(shared, connection); connection = 0; }
             }
             finally
             {

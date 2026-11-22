@@ -1,6 +1,6 @@
 # Euterpe Hub 发布资料
 
-当前提供 **0.5.3-beta.1** 单 DLL 预发布构建，主 DLL 的 `MelonInfo.Version` 为 **0.5.3**。它已内嵌配套文件；不要求 Hub 增加 ZIP 安装功能，不新增 MuseDashMirror 依赖。**准备好文件不等于 Hub 已审核通过。**
+当前提供 **0.5.4-beta.1** 单 DLL 预发布构建，主 DLL 的 `MelonInfo.Version` 为 **0.5.4**。它已内嵌配套文件；不要求 Hub 增加 ZIP 安装功能，不新增 MuseDashMirror 依赖。**准备好文件不等于 Hub 已审核通过。**
 
 ## 创建模组页
 
@@ -17,7 +17,7 @@
 | 库依赖 | 留空，不把本项目辅助 EXE、Bootstrap 或 MelonLoader 自带组件冒充 Hub 库依赖 |
 | 不兼容模组 | 目前无确认名单，留空；不要把未验证的环境填成已知冲突 |
 
-上传发布时选择 `artifacts/bin/MuseDashSteamPresence.dll`，不要传 ZIP、Bootstrap DLL、设置 EXE 或构建探针。文件旁的 SHA256 可核对具体构建。版本字段按实际 DLL 元数据填写 `0.5.3`，在描述和更新日志中明确“测试版”。
+上传发布时选择 `artifacts/bin/MuseDashSteamPresence.dll`，不要传 ZIP、Bootstrap DLL、设置 EXE 或构建探针。文件旁的 SHA256 可核对具体构建。版本字段按实际 DLL 元数据填写 `0.5.4`，在描述和更新日志中明确“测试版”。
 
 ## 可复制的中文描述
 

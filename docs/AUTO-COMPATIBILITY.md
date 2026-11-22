@@ -29,3 +29,13 @@ normal Steam code update is compatible, or eliminate future adapter maintenance.
 
 当前只对已取得的 November DLL 建立等价指纹。旧版仍支持精确指纹，
 但没有未经核对就扩大旧版的自动识别范围。
+
+## 0.5.4-beta.1
+
+The controller now derives seven method addresses from the client image before
+consulting the audited profile. The profile serves as an independent check.
+Every binding also checks the loaded interface slot. A match in a previously
+unaudited executable is insufficient to enable sending.
+
+2026-11-23：用当时正在使用的 Steam 完成独立定位测试。好友确认看到曲名，
+选歌、打歌、返回选歌均有本地回读记录，用户确认好友与聊天全程在线。

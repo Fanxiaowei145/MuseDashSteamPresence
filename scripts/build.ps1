@@ -43,7 +43,7 @@ Compile-Desktop 'PacketTests' @($packet, (Join-Path $tests 'PacketTests.cs'))
 Compile-Desktop 'SongDisplayTests' @($policy,$display,$config,(Join-Path $tests 'SongDisplayTests.cs'))
 # This links the real loop to a fake transport, never to SteamNative.cs.
 Compile-Desktop 'ControllerRegressionTests' @($policy,$display,$config,$packet,$loop,(Join-Path $tests 'ControllerRegressionTests.cs')) -MainClass 'ControllerRegressionTests'
-Compile-Desktop 'PresenceController' @($policy,$display,$config,$steamBuild,$steamImage,$packet,$loop,(Join-Path $controller 'SteamNative.cs')) -Gui
+Compile-Desktop 'PresenceController' @($policy,$display,$config,$steamBuild,$steamImage,$packet,$loop,(Join-Path $controller 'SteamNative.cs'),(Join-Path $controller 'PresenceImageLocator.cs')) -Gui
 Compile-Desktop 'MuseDashPresenceSettings' @($policy,$display,$config,$steamBuild,$steamImage,$installation,(Join-Path $settings 'GameLocation.cs'),(Join-Path $settings 'SettingsApp.cs')) -Gui
 Compile-Desktop 'InstallationTests' @($installation,(Join-Path $tests 'InstallationFixtures.cs'),(Join-Path $tests 'InstallationTests.cs'))
 Compile-Desktop 'SettingsEnvironmentTests' @($policy,$display,$config,$installation,(Join-Path $settings 'GameLocation.cs'),(Join-Path $settings 'SettingsApp.cs'),(Join-Path $tests 'InstallationFixtures.cs'),(Join-Path $tests 'SettingsEnvironmentTests.cs')) -MainClass 'SettingsEnvironmentTests'

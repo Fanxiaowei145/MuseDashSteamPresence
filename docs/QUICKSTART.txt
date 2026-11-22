@@ -1,4 +1,4 @@
-MuseDashSteamPresence 0.5.3-beta.1
+MuseDashSteamPresence 0.5.4-beta.1
 作者：樊小胃
 免费开源，采用 MIT 许可证，欢迎提出问题、提交 PR 和改进。
 
