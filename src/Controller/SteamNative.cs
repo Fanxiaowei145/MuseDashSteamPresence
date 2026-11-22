@@ -48,11 +48,12 @@ namespace MuseDashSteamPresence
                     steamPath = Convert.ToString(key == null ? null : key.GetValue("SteamPath"));
                 if (String.IsNullOrWhiteSpace(steamPath)) throw new InvalidOperationException("Steam path not found.");
                 string dll = Path.Combine(steamPath, "steamclient64.dll");
-                string hash;
-                using (var file = File.OpenRead(dll)) using (var sha = SHA256.Create())
-                    hash = BitConverter.ToString(sha.ComputeHash(file)).Replace("-", "");
-                var profile = SteamBuild.FindProfile(hash);
-                if (profile == null) throw new InvalidOperationException("Steam build changed; adapter disabled. SHA256=" + hash);
+                // Deny replacement/writes between inspection and native initialization.
+                using (var validatedFile = new FileStream(dll,FileMode.Open,FileAccess.Read,FileShare.Read))
+                {
+                bool equivalent;
+                var profile = SteamBuild.ReadProfile(validatedFile,out equivalent);
+                if (profile == null) throw new InvalidOperationException("Steam executable content changed; no compatible audited profile.");
                 var module = LoadLibraryExW(dll, IntPtr.Zero, 0x100 | 0x1000);
                 if (module == IntPtr.Zero) throw new InvalidOperationException("Cannot load Steam IPC runtime.");
                 getCallback = (GetCallback)Marshal.GetDelegateForFunctionPointer(GetProcAddress(module, "Steam_BGetCallback"), typeof(GetCallback));
@@ -82,6 +83,7 @@ namespace MuseDashSteamPresence
                 connection = Fn<AllocateShared>(shared, 0)(shared);
                 if (connection == 0) throw new InvalidOperationException("Shared connection allocation failed.");
                 PumpCallbacks();
+                }
             }
             catch { Dispose(); throw; }
         }

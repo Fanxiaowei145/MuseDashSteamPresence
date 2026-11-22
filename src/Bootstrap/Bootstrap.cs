@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using MelonLoader;
 
-[assembly: MelonInfo(typeof(MuseDashSteamPresence.EarlyPresence), "Muse Dash Steam Presence Early Start", "0.5.2", "樊小胃")]
+[assembly: MelonInfo(typeof(MuseDashSteamPresence.EarlyPresence), "Muse Dash Steam Presence Early Start", "0.5.3", "樊小胃")]
 [assembly: MelonGame("PeroPeroGames", "MuseDash")]
 
 namespace MuseDashSteamPresence

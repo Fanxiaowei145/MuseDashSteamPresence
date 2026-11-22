@@ -31,18 +31,20 @@ $policy = Join-Path $shared 'PublicationPolicy.cs'
 $display = Join-Path $shared 'SongDisplay.cs'
 $config = Join-Path $shared 'PresenceSettings.cs'
 $steamBuild = Join-Path $shared 'SteamBuild.cs'
+$steamImage = Join-Path $shared 'SteamImageFingerprint.cs'
 $installation = Join-Path $shared 'PluginInstallation.cs'
 $deployment = Join-Path $shared 'PayloadDeployment.cs'
 $packet = Join-Path $controller 'GamePresencePacket.cs'
 $loop = Join-Path $controller 'PresenceController.cs'
-Compile-Desktop 'SteamBuildTests' @($steamBuild,(Join-Path $tests 'SteamBuildTests.cs'))
+Compile-Desktop 'SteamBuildTests' @($steamBuild,$steamImage,(Join-Path $tests 'SteamBuildTests.cs'))
+Compile-Desktop 'SteamImageTests' @($steamBuild,$steamImage,(Join-Path $tests 'SteamImageTests.cs'))
 Compile-Desktop 'PolicyTests' @($policy, (Join-Path $tests 'PolicyTests.cs'))
 Compile-Desktop 'PacketTests' @($packet, (Join-Path $tests 'PacketTests.cs'))
 Compile-Desktop 'SongDisplayTests' @($policy,$display,$config,(Join-Path $tests 'SongDisplayTests.cs'))
 # This links the real loop to a fake transport, never to SteamNative.cs.
 Compile-Desktop 'ControllerRegressionTests' @($policy,$display,$config,$packet,$loop,(Join-Path $tests 'ControllerRegressionTests.cs')) -MainClass 'ControllerRegressionTests'
-Compile-Desktop 'PresenceController' @($policy,$display,$config,$steamBuild,$packet,$loop,(Join-Path $controller 'SteamNative.cs')) -Gui
-Compile-Desktop 'MuseDashPresenceSettings' @($policy,$display,$config,$steamBuild,$installation,(Join-Path $settings 'GameLocation.cs'),(Join-Path $settings 'SettingsApp.cs')) -Gui
+Compile-Desktop 'PresenceController' @($policy,$display,$config,$steamBuild,$steamImage,$packet,$loop,(Join-Path $controller 'SteamNative.cs')) -Gui
+Compile-Desktop 'MuseDashPresenceSettings' @($policy,$display,$config,$steamBuild,$steamImage,$installation,(Join-Path $settings 'GameLocation.cs'),(Join-Path $settings 'SettingsApp.cs')) -Gui
 Compile-Desktop 'InstallationTests' @($installation,(Join-Path $tests 'InstallationFixtures.cs'),(Join-Path $tests 'InstallationTests.cs'))
 Compile-Desktop 'SettingsEnvironmentTests' @($policy,$display,$config,$installation,(Join-Path $settings 'GameLocation.cs'),(Join-Path $settings 'SettingsApp.cs'),(Join-Path $tests 'InstallationFixtures.cs'),(Join-Path $tests 'SettingsEnvironmentTests.cs')) -MainClass 'SettingsEnvironmentTests'
 Compile-Desktop 'PayloadDeploymentTests' @($deployment,(Join-Path $tests 'PayloadDeploymentTests.cs'))

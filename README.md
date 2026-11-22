@@ -4,9 +4,9 @@ English | [简体中文](docs/README.zh-CN.md)
 
 Show your current Muse Dash song in Steam Friends. Supports built-in songs and Euterpe custom charts, optional artist names, custom idle text and separators. Friends do not need this mod.
 
-**[Download mod DLL](https://github.com/Fanxiaowei145/MuseDashSteamPresence/releases/download/v0.5.2-beta.1/MuseDashSteamPresence.dll)** · **[Download full ZIP](https://github.com/Fanxiaowei145/MuseDashSteamPresence/releases/download/v0.5.2-beta.1/MuseDashSteamPresence-0.5.2-beta.1-win-x64.zip)** · [Release page](https://github.com/Fanxiaowei145/MuseDashSteamPresence/releases/tag/v0.5.2-beta.1)
+**[Download mod DLL](https://github.com/Fanxiaowei145/MuseDashSteamPresence/releases/download/v0.5.3-beta.1/MuseDashSteamPresence.dll)** · **[Download full ZIP](https://github.com/Fanxiaowei145/MuseDashSteamPresence/releases/download/v0.5.3-beta.1/MuseDashSteamPresence-0.5.3-beta.1-win-x64.zip)** · [Release page](https://github.com/Fanxiaowei145/MuseDashSteamPresence/releases/tag/v0.5.3-beta.1)
 
-Current version: **0.5.2 Beta**. The links download the files directly. Alternatively, open the release page and choose the DLL or `win-x64.zip` under **Assets**. Use either installation method; the generated **Source code** archives are for developers.
+Current version: **0.5.3 Beta**. The links download the files directly. Alternatively, open the release page and choose the DLL or `win-x64.zip` under **Assets**. Use either installation method; the generated **Source code** archives are for developers.
 
 ## Preview
 
@@ -43,7 +43,7 @@ The settings app works independently of the game and Euterpe. Saving during game
 ## Compatibility
 
 - Reported working across one game-version update; other game versions are not guaranteed.
-- Uses private Steam client interfaces. **Only verified Steam DLL builds can publish status**; unsupported builds stop sending. [Compatibility details](docs/COMPATIBILITY.md).
+- Uses private Steam interfaces. Audited builds and strictly equivalent executable contents are supported; signing/timestamp-only changes can be recognized automatically. **Steam code updates may still require adaptation.** [Detection limits](docs/AUTO-COMPATIBILITY.md).
 - On the verified client, song changes do not repeatedly trigger new “started playing” notifications. Initial launch may still notify friends normally.
 - Long titles and artist names may be truncated. There is currently no guaranteed full-display solution.
 

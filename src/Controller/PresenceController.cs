@@ -79,7 +79,7 @@ internal static class PresenceController
                 long bootUntil = (long)GetTickCount64() + Math.Max(0, 60000 - age);
                 int bootRepairs = 0;
                 bool refreshSettings = savedFingerprint != fingerprint;
-                Log("Controller 0.5.2-beta.1 started; configurable titles, live settings, nonblocking state delivery.");
+                Log("Controller 0.5.3-beta.1 started; configurable titles, live settings, nonblocking state delivery.");
                 while (ParentAlive(pid, started) && !File.Exists(stem + ".stop"))
                 {
                     Thread.Sleep(100);

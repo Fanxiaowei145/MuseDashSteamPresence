@@ -1,6 +1,6 @@
 # 维护者发布检查
 
-当前建议标签：`v0.5.2-beta.1`，勾选 GitHub **Set as a pre-release**。不要称作长期稳定版本。
+当前建议标签：`v0.5.3-beta.1`，勾选 GitHub **Set as a pre-release**。不要称作长期稳定版本。
 
 ## 离线与打包
 
