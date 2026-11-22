@@ -9,9 +9,9 @@ using Il2CppFormulaBase;
 using Il2CppAssets.Scripts.Database;
 using UnityEngine.SceneManagement;
 
-[assembly: AssemblyVersion("0.5.1.0")]
-[assembly: AssemblyFileVersion("0.5.1.0")]
-[assembly: MelonInfo(typeof(MuseDashSteamPresence.Entry), "Muse Dash Steam Song Presence", "0.5.1", "樊小胃")]
+[assembly: AssemblyVersion("0.5.2.0")]
+[assembly: AssemblyFileVersion("0.5.2.0")]
+[assembly: MelonInfo(typeof(MuseDashSteamPresence.Entry), "Muse Dash Steam Song Presence", "0.5.2", "樊小胃")]
 [assembly: MelonGame("PeroPeroGames", "MuseDash")]
 
 namespace MuseDashSteamPresence

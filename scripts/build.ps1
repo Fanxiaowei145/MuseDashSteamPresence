@@ -35,6 +35,7 @@ $installation = Join-Path $shared 'PluginInstallation.cs'
 $deployment = Join-Path $shared 'PayloadDeployment.cs'
 $packet = Join-Path $controller 'GamePresencePacket.cs'
 $loop = Join-Path $controller 'PresenceController.cs'
+Compile-Desktop 'SteamBuildTests' @($steamBuild,(Join-Path $tests 'SteamBuildTests.cs'))
 Compile-Desktop 'PolicyTests' @($policy, (Join-Path $tests 'PolicyTests.cs'))
 Compile-Desktop 'PacketTests' @($packet, (Join-Path $tests 'PacketTests.cs'))
 Compile-Desktop 'SongDisplayTests' @($policy,$display,$config,(Join-Path $tests 'SongDisplayTests.cs'))

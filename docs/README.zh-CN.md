@@ -4,9 +4,9 @@
 
 在 Steam 好友列表显示你正在 Muse Dash 中游玩的曲名，支持本体曲目和 Euterpe 自制曲。可自定义状态、歌曲作者和分隔符，好友无需安装。
 
-**[下载模组 DLL](https://github.com/Fanxiaowei145/MuseDashSteamPresence/releases/download/v0.5.1-beta.1/MuseDashSteamPresence.dll)** · **[下载完整安装包](https://github.com/Fanxiaowei145/MuseDashSteamPresence/releases/download/v0.5.1-beta.1/MuseDashSteamPresence-0.5.1-beta.1-win-x64.zip)** · [版本页面](https://github.com/Fanxiaowei145/MuseDashSteamPresence/releases/tag/v0.5.1-beta.1)
+**[下载模组 DLL](https://github.com/Fanxiaowei145/MuseDashSteamPresence/releases/download/v0.5.2-beta.1/MuseDashSteamPresence.dll)** · **[下载完整安装包](https://github.com/Fanxiaowei145/MuseDashSteamPresence/releases/download/v0.5.2-beta.1/MuseDashSteamPresence-0.5.2-beta.1-win-x64.zip)** · [版本页面](https://github.com/Fanxiaowei145/MuseDashSteamPresence/releases/tag/v0.5.2-beta.1)
 
-当前版本：**0.5.1 Beta**。上面的链接可直接下载；也可进入版本页面，在 **Assets** 中选择 DLL 或 `win-x64.zip`。两种安装方式任选一种，`Source code` 是源码。
+当前版本：**0.5.2 Beta**。上面的链接可直接下载；也可进入版本页面，在 **Assets** 中选择 DLL 或 `win-x64.zip`。两种安装方式任选一种，`Source code` 是源码。
 
 ## 效果
 

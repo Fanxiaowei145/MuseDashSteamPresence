@@ -51,7 +51,8 @@ namespace MuseDashSteamPresence
                 string hash;
                 using (var file = File.OpenRead(dll)) using (var sha = SHA256.Create())
                     hash = BitConverter.ToString(sha.ComputeHash(file)).Replace("-", "");
-                if (hash != SteamBuild.SupportedHash) throw new InvalidOperationException("Steam build changed; adapter disabled. SHA256=" + hash);
+                var profile = SteamBuild.FindProfile(hash);
+                if (profile == null) throw new InvalidOperationException("Steam build changed; adapter disabled. SHA256=" + hash);
                 var module = LoadLibraryExW(dll, IntPtr.Zero, 0x100 | 0x1000);
                 if (module == IntPtr.Zero) throw new InvalidOperationException("Cannot load Steam IPC runtime.");
                 getCallback = (GetCallback)Marshal.GetDelegateForFunctionPointer(GetProcAddress(module, "Steam_BGetCallback"), typeof(GetCallback));
@@ -60,6 +61,7 @@ namespace MuseDashSteamPresence
                 client = create("SteamClient020", IntPtr.Zero);
                 var engine = create("CLIENTENGINE_INTERFACE_VERSION005", IntPtr.Zero);
                 if (client == IntPtr.Zero || engine == IntPtr.Zero) throw new InvalidOperationException("Steam interface unavailable.");
+                ValidateSlots(engine, module, new int[] {13,69}, profile.Engine);
                 pipe = Fn<CreatePipe>(client, 0)(client);
                 user = Fn<ConnectUser>(client, 2)(client, pipe);
                 if (pipe == 0 || user == 0) throw new InvalidOperationException("Steam must be running and signed in.");
@@ -68,10 +70,8 @@ namespace MuseDashSteamPresence
                 if (shared == IntPtr.Zero || friends == IntPtr.Zero) throw new InvalidOperationException("Steam interfaces unavailable.");
                 // The three wrappers were independently verified on disk and in
                 // a successful external-process round-trip test. No guessed ABI.
-                long[] expected = { 0x7379c0, 0x85d820, 0x8692b0 };
-                for (int slot = 0; slot < expected.Length; slot++)
-                    if (Marshal.ReadIntPtr(Marshal.ReadIntPtr(shared), slot * IntPtr.Size).ToInt64() - module.ToInt64() != expected[slot])
-                        throw new InvalidOperationException("Shared connection ABI mismatch; no native message sent.");
+                ValidateSlots(shared, module, new int[] {0,1,2}, profile.Shared);
+                ValidateSlots(friends, module, new int[] {23,24}, profile.Friends);
                 using (var key = Registry.CurrentUser.OpenSubKey(@"Software\Valve\Steam\ActiveProcess"))
                 {
                     uint account = Convert.ToUInt32(key.GetValue("ActiveUser"));
@@ -84,6 +84,12 @@ namespace MuseDashSteamPresence
                 PumpCallbacks();
             }
             catch { Dispose(); throw; }
+        }
+        static void ValidateSlots(IntPtr obj, IntPtr module, int[] slots, long[] expected)
+        {
+            for (int i = 0; i < slots.Length; i++)
+                if (Marshal.ReadIntPtr(Marshal.ReadIntPtr(obj), slots[i] * IntPtr.Size).ToInt64() - module.ToInt64() != expected[i])
+                    throw new InvalidOperationException("Steam interface ABI mismatch; no status message sent.");
         }
         static T Fn<T>(IntPtr obj, int index) where T : class
         {

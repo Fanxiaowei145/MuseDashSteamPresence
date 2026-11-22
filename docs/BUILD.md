@@ -65,7 +65,7 @@ artifacts/bin/MuseDashPresenceSettings.exe
 pwsh -File scripts/package-hub.ps1
 ```
 
-生成的 `MuseDashSteamPresence.dll` 就是 Hub 发布上传的单个文件，旁边有校验值、`hub-upload-fields.json` 和审核说明。脚本实际读取 MelonInfo 元数据和资源表，拒绝导出没有配套资源的旧 DLL。平台版本填 DLL 的 `0.5.1`，描述中注明它属于 `0.5.1-beta.1` 测试发行，不冒充稳定版。
+生成的 `MuseDashSteamPresence.dll` 就是 Hub 发布上传的单个文件，旁边有校验值、`hub-upload-fields.json` 和审核说明。脚本实际读取 MelonInfo 元数据和资源表，拒绝导出没有配套资源的旧 DLL。平台版本填 DLL 的 `0.5.2`，描述中注明它属于 `0.5.2-beta.1` 测试发行，不冒充稳定版。
 
 首次从 Hub 安装后照常启动游戏，会准备设置窗口；下次起可提前独立配置。GitHub ZIP 仍可直接先设置后启动。无需 Hub 平台改变安装方式。
 
@@ -73,7 +73,7 @@ pwsh -File scripts/package-hub.ps1
 
 ```powershell
 pwsh -File scripts/package.ps1
-pwsh -File tests/Test-Release.ps1 -ZipPath "dist/MuseDashSteamPresence-0.5.1-beta.1-win-x64.zip"
+pwsh -File tests/Test-Release.ps1 -ZipPath "dist/MuseDashSteamPresence-0.5.2-beta.1-win-x64.zip"
 ```
 
 ZIP 顶层直接是 `Mods`、`Plugins`、`UserData` 等，无额外套层。包内有 SHA256 清单，ZIP 旁有整个文件的 `.sha256`；校验值用于核对下载完整性，不等同于签名或安全审计。

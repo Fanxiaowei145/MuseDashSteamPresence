@@ -28,10 +28,10 @@ git push -u origin main
 
 打开仓库 Releases → Draft a new release：
 
-- Tag：`v0.5.1-beta.1`
-- Title：`0.5.1-beta.1 — 解压即用的 Steam 状态插件`
+- Tag：`v0.5.2-beta.1`
+- Title：`0.5.2-beta.1 — 解压即用的 Steam 状态插件`
 - 勾选 **Set as a pre-release**。
-- 附件上传本地 `dist` 下的 `MuseDashSteamPresence-0.5.1-beta.1-win-x64.zip` 和对应 `.zip.sha256`。
+- 附件上传本地 `dist` 下的 `MuseDashSteamPresence-0.5.2-beta.1-win-x64.zip` 和对应 `.zip.sha256`。
 - 同一构建可另附 `scripts/package-hub.ps1` 导出的 `MuseDashSteamPresence.dll`；Hub 平台上传的是该 DLL，不是 ZIP。字段与审核说明见 [Hub 指南](EUTERPE-HUB.md)。
 - 发布说明可复制下方内容；源码仓库与发行包是两份不同用途的内容。
 

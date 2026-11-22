@@ -4,9 +4,9 @@
 
 Show your current Muse Dash song in Steam Friends. Supports built-in songs and Euterpe custom charts, optional artist names, custom idle text and separators. Friends do not need this mod.
 
-**[Download mod DLL](https://github.com/Fanxiaowei145/MuseDashSteamPresence/releases/download/v0.5.1-beta.1/MuseDashSteamPresence.dll)** · **[Download full ZIP](https://github.com/Fanxiaowei145/MuseDashSteamPresence/releases/download/v0.5.1-beta.1/MuseDashSteamPresence-0.5.1-beta.1-win-x64.zip)** · [Release page](https://github.com/Fanxiaowei145/MuseDashSteamPresence/releases/tag/v0.5.1-beta.1)
+**[Download mod DLL](https://github.com/Fanxiaowei145/MuseDashSteamPresence/releases/download/v0.5.2-beta.1/MuseDashSteamPresence.dll)** · **[Download full ZIP](https://github.com/Fanxiaowei145/MuseDashSteamPresence/releases/download/v0.5.2-beta.1/MuseDashSteamPresence-0.5.2-beta.1-win-x64.zip)** · [Release page](https://github.com/Fanxiaowei145/MuseDashSteamPresence/releases/tag/v0.5.2-beta.1)
 
-Current version: **0.5.1 Beta**. The links download the files directly. Alternatively, open the release page and choose the DLL or `win-x64.zip` under **Assets**. Use either installation method; the generated **Source code** archives are for developers.
+Current version: **0.5.2 Beta**. The links download the files directly. Alternatively, open the release page and choose the DLL or `win-x64.zip` under **Assets**. Use either installation method; the generated **Source code** archives are for developers.
 
 ## Preview
 

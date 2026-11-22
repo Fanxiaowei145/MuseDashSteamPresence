@@ -11,7 +11,7 @@ using MuseDashSteamPresence;
 [assembly: AssemblyProduct("Muse Dash Steam Presence")]
 [assembly: AssemblyCompany("樊小胃")]
 [assembly: AssemblyCopyright("Copyright (c) 2026 樊小胃 and contributors")]
-[assembly: AssemblyVersion("0.5.1.0")]
+[assembly: AssemblyVersion("0.5.2.0")]
 
 internal static class SettingsApp
 {
